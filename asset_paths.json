@@ -1,22 +1,22 @@
 {
   "textures": {
     "gui": {
-      "back": "katchnrun/assets/textures/gui/back.png",
-      "close": "katchnrun/assets/textures/gui/close.png",
-      "coin": "katchnrun/assets/textures/gui/coin.png",
-      "gem": "katchnrun/assets/textures/gui/gem.png",
-      "news": "katchnrun/assets/textures/gui/news.png",
-      "placeholder": "katchnrun/assets/textures/gui/placeholder.png",
-      "profile": "katchnrun/assets/textures/gui/profile.png",
-      "resize": "katchnrun/assets/textures/gui/resize.png",
-      "settings": "katchnrun/assets/textures/gui/settings.png",
-      "warning": "katchnrun/assets/textures/gui/warning.png",
-      "warriors": "katchnrun/assets/textures/gui/warriors.png"
+      "back": "/katchnrun/assets/textures/gui/back.png",
+      "close": "/katchnrun/assets/textures/gui/close.png",
+      "coin": "/katchnrun/assets/textures/gui/coin.png",
+      "gem": "/katchnrun/assets/textures/gui/gem.png",
+      "news": "/katchnrun/assets/textures/gui/news.png",
+      "placeholder": "/katchnrun/assets/textures/gui/placeholder.png",
+      "profile": "/katchnrun/assets/textures/gui/profile.png",
+      "resize": "/katchnrun/assets/textures/gui/resize.png",
+      "settings": "/katchnrun/assets/textures/gui/settings.png",
+      "warning": "/katchnrun/assets/textures/gui/warning.png",
+      "warriors": "/katchnrun/assets/textures/gui/warriors.png"
     }
   },
   "sounds": {
     "ambient": {
-      "home_0": "katchnrun/assets/sounds/ambient/home_0.mp3"
+      "home_0": "/katchnrun/assets/sounds/ambient/home_0.mp3"
     },
     "sfx": {
       "button_click": "katchnrun/assets/sounds/sfx/button_press.mp3"
