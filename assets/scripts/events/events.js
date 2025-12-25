@@ -15,7 +15,7 @@ document.querySelector(".home_top_fullscreen").addEventListener("click", () => {
 
 let musicPaused = false;
 document.querySelector(".home_center_music").onclick = () => {
-    const audioPath = "/katchnrun/assets/sounds/ambient/home_0.mp3";
+    const audioPath = "assets/sounds/ambient/home_0.mp3";
 
     if (musicPaused) {
         AudioHandler.play(audioPath, { volume: 1, loop: true, forceRestart: false });
@@ -25,10 +25,6 @@ document.querySelector(".home_center_music").onclick = () => {
         musicPaused = true;
     }
 };
-
-document.querySelector(".home_center_play").addEventListener("click", () => {
-    window.location.href.replace("../../../Christmas/index.html");
-});
 
 document.querySelector(".home_center_play").addEventListener("click", () => {
     window.location.href = "../../Christmas/index.html";
