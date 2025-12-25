@@ -3,7 +3,7 @@
         "background": {},
         "entity": {},
         "gui": {
-            "back": "./assets/textures/gui/back.png",
+            "back": "/assets/textures/gui/back.png",
             "close": "./assets/textures/gui/close.png",
             "coin": "./assets/textures/gui/coin.png",
             "gem": "./assets/textures/gui/gem.png",
