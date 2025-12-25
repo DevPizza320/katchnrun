@@ -10,7 +10,7 @@ const main = document.querySelector("main");
 const version_span = document.querySelector(".home_bottom span");
 let mayproceed = false;
 
-const config = await utils.JSON("../../config.json");
+const config = await utils.JSON("/config.json");
 version_span.textContent = `Katch N' Run ${config.version}. Do not distribute!`;
 
 if (config.maintenance) {
