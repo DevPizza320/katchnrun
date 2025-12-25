@@ -1,0 +1,98 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}
+
+main {
+    background: url("../../../assets/textures/background/home.png") no-repeat center center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* animation: fadeIn 5s ease; */
+}
+
+.home_top, 
+.home_center, 
+.home_bottom {
+    width: 100%;
+}
+
+.home_top, 
+.home_bottom {
+    height: auto;
+    aspect-ratio: 12;
+    display: flex;
+    align-items: center;
+}
+
+.home_top {
+    justify-content: space-between;
+}
+
+.home_top > button,
+.home_top-right > button {
+    height: 70%;
+    aspect-ratio: 1;
+}
+
+.home_center {
+    height: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home_top_profile {
+    margin-left: var(--smallest);
+}
+
+.home_top-right {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--smallest);
+    margin-right: var(--smallest);
+}
+
+/* ! CENTER */
+.home_center-left,
+.home_center-center,
+.home_center-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: calc(var(--small) / 2);
+    width: 20%;
+    height: 60%;
+}
+
+.home_center-left {
+    margin-left: var(--smaller);
+}
+
+.home_center-right {
+    margin-right: var(--smaller);
+}
+
+.home_center-left > button,
+.home_center-center > button,
+.home_center-right > button {
+    width: 100%;
+    aspect-ratio: 4;
+}
+
+.home_bottom {
+    align-items: end;
+}
+
+.home_bottom > span {
+    margin-left: var(--smaller);
+}

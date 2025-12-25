@@ -1,0 +1,72 @@
+.themed-button-wooden {
+    position: relative;
+    border: calc(var(--smallest) / 3) solid var(--brown-1);
+    border-radius: var(--smallest);
+    background-color: #a0753c;
+    box-shadow: 0 -.35vw 0 inset var(--brown-5);
+    transition: all .3s;
+    display: flex;
+    align-items: center;
+}
+
+.themed-button-wooden:has(> img):not(:has(> span)) {
+    justify-content: center;
+}
+
+.themed-button-wooden:has(> span):not(:has(> img)) {
+    justify-content: center;
+}
+
+.themed-button-wooden:has(> img):has(> span) {
+    justify-content: center;
+    gap: calc(var(--smaller) / 2);
+}
+
+.themed-button-wooden::before {
+    content: "";
+    position: absolute;
+    width: 97.5%;
+    height: 40%;
+    background: var(--brown-1);
+    opacity: .05;
+    border-radius: .25vw .25vw .5vw .5vw;
+    inset: 50%;
+    transform: translate(-50%, -2.5%);
+}
+
+.themed-button-wooden:hover {
+    transform: translateY(calc(var(--smallest) / -3));
+}
+
+.themed-button-wooden img {
+    object-fit: contain;
+    height: 80%;
+    width: auto;
+    overflow: hidden;
+}
+
+.themed-text-wooden {
+    color: tan;
+    text-shadow: 0 0 0.1vw var(--brown-4), 0 0 0.2vw var(--brown-4), 0 0 0.3vw var(--brown-4);
+    user-select: none;
+    font-weight: bolder;
+    font-size: clamp(var(--smallest), var(--smaller), var(--small));
+}
+
+.no-hover {
+    pointer-events: none;
+}
+
+.no-access {
+    filter: grayscale(200%);
+    pointer-events: none;
+}
+
+.no-access::after {
+    content: "🔒";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}

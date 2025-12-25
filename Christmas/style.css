@@ -1,0 +1,16 @@
+canvas {
+  display: block;
+  margin: 0 auto;
+  background: url('../assets/textures/background/christmas.png') no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+  z-index: 0;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}

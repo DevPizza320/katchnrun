@@ -1,0 +1,35 @@
+{
+  "profile": {
+    "847n-43nc-3uv9-01mc": {
+      "id": "847n-43nc-3uv9-01mc",
+      "username": "BOB123",
+      "status": {
+        "banned": false,
+        "banUntil": null,
+        "tainted": false
+      },
+      "meta": {
+        "createdAt": 1700000000000,
+        "lastPlayed": 1700000000000,
+        "saveVersion": 1,
+        "installId": "x9c2k8"
+      },
+      "progression": {
+        "coins": 0,
+        "gems": 0,
+        "totalCoinsEarned": 0,
+        "totalGemsEarned": 0
+      },
+      "stats": {
+        "playtime": 0,
+        "sessions": 0,
+        "levelsCompleted": 0,
+        "deaths": 0
+      },
+      "integrity": {
+        "checksum": "",
+        "lastVerified": 1700000000000
+      }
+    }
+  }
+}

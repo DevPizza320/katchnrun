@@ -1,0 +1,54 @@
+@font-face {
+    font-family: "Kambium";
+    src: url("../../assets/resources/Comic Sans MS.ttf");
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    place-items: center;
+}
+
+* {
+    font-family: "Kambium";
+    box-sizing: border-box;
+    user-select: none;
+    overflow: hidden;
+    -webkit-user-drag: none;
+}
+
+img {
+    filter: contrast(120%);
+}
+
+/* Color Palette */
+:root {
+    --brown-1: #1f1003;
+    --brown-2: #2b1807;
+    --brown-3: #381c03;
+    --brown-4: #402610;
+    --brown-5: #5A3212;
+
+    --brown-6: #7d4915;
+    --brown-7: #995d20;
+    --brown-8: #cc742d;
+    --brown-9: #eb9952;
+    --brown-10: #f0a160;
+
+    --tiniest: calc(.15vw + .15vh);
+    --tinier: calc(.25vw + .25vh);
+    --tiny: calc(.5vw + .5vh);
+    --smallest: calc(.75vw + .75vh);
+    --smaller: calc(1vw + 1vh);
+    --small: calc(1.25vw + 1.25vh);
+    --medium: calc(1.5vw + 1.5vh);
+    --mediumer: calc(1.75vw + 1.75vh);
+    --mediumest: calc(2vw + 2vh);
+    --large: calc(3vw + 3vh);
+    --larger: calc(4vw + 4vh);
+    --largest: calc(5vw + 5vh);
+}
