@@ -1,5 +1,5 @@
 import { AudioHandler } from "../sylth/audio/audio_handler.js";
-import * as utils from "../utils/utils.js"; 
+import * as utils from "../utils/utils.js";
 
 document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
@@ -26,6 +26,7 @@ document.querySelector(".home_center_music").onclick = () => {
     }
 };
 
-document.querySelector(".home_center_play").addEventListener("click", () => {
-    window.location.href = "../../Christmas/index.html";
+// blur windows dissappear when clicked
+Array.from(document.querySelectorAll(".themed-window-blurry")).forEach(w => {
+    w.addEventListener("click", (e) => { e.stopPropagation(); if (e.target === w && w.classList.contains("close-on-click")) w.style.display = "none" });
 });

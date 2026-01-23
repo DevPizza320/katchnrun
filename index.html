@@ -2,18 +2,16 @@
 <html lang="en" style="background: black;">
 
 <head>
-    <base href="/katchnrun/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Katch N' Run</title>
     <link rel="shortcut icon" href="icon.png" type="image/png">
-    <link rel="preload" href="./assets/textures/background/home.png" as="image"/>
-    <link rel="preload" href="./assets/textures/background/load.png" as="image"/>
-    <link rel="stylesheet" href="./assets/styles/styles.css">
+    <link rel="stylesheet" href="./assets/styles/styles.css" type="text/css">
     <link rel="stylesheet" href="./assets/styles/gui/popups.css">
     <link rel="stylesheet" href="./assets/styles/gui/themes.css">
     <link rel="stylesheet" href="./assets/styles/gui/gui.css">
     <link rel="stylesheet" href="./assets/scripts/sylth/load/load.css">
+    <link rel="stylesheet" href="./assets/styles/level.css">
 </head>
 
 <body>
@@ -74,8 +72,74 @@
         </div>
         <div class="home_bottom">
             <span class="themed-text-wooden">Katch N' Run</span>
+            <div class="home_bottom_media">
+                <button class="home_bottom_discord themed-button-wooden themed-text-wooden extern button-press"
+                    extern="https://discord.gg/a5S72RNb2h"
+                    extern-message="Join the official Katch N' Run Discord Server">
+                    <img src="./assets/textures/gui/discord.png" alt="Discord">
+                </button>
+                <button class="home_bottom_youtube themed-button-wooden themed-text-wooden extern button-press no-access"
+                    extern="https://www.youtube.com/@ThatHungarianEditor">
+                    <img src="./assets/textures/gui/youtube.png" alt="Youtube">
+                </button>
+            </div>
+        </div>
+
+        <!-- ! WINDOWS MUHAHAHAHAHA -->
+        <div class="themed-window-blurry hidden fullscreen button-press close-on-click">
+            <div class="home_level-select themed-window-wooden">
+                <div class="home_level_info">
+                    <img src="./assets/textures/background/jungle.png" class="home_level_image">
+                    <span class="themed-text-wooden">Echoes of The Deep Jungle</span>
+                </div>
+                <div class="home_level_settings">
+                    <button class="home_level_left-arrow themed-button-wooden">
+                        <img src="./assets/textures/gui/arrow.png" alt="Previous" class="button-press">
+                    </button>
+                    <div class="home_level_difficulty">
+                        <button class="home_level_easy themed-button-wooden themed-text-wooden" color-variant="#008000">
+                            <span>Easy</span>
+                        </button>
+                        <button class="home_level_medium themed-button-wooden themed-text-wooden">
+                            <span>Medium</span>
+                        </button>
+                        <button class="home_level_warrior themed-button-wooden themed-text-wooden">
+                            <span>Warrior</span>
+                        </button>
+                    </div>
+                    <button class="home_level_right-arrow themed-button-wooden">
+                        <img src="./assets/textures/gui/arrow.png" alt="Next" class="button-press">
+                    </button>
+                </div>
+                <button class="home_level_start themed-button-wooden themed-text-wooden" color-variant="#39FF14">
+                    <span>Play</span>
+                </button>
+            </div>
         </div>
     </main>
+    <div class="level_game-stats hidden" style="pointer-events: none;">
+        <div class="level_player-stats">
+            <button class="themed-button-wooden themed-text-wooden player-1" style="justify-content: space-between;">
+                <img src="./assets/textures/entity/player/frog.png" alt="PLAYER 1">
+                <span class="player-1_lives">6💖</span>
+                <span class="player-1_score">0</span>
+            </button>
+            <button class="themed-button-wooden themed-text-wooden player-2" style="justify-content: space-between;">
+                <img src="./assets/textures/entity/player/red_stocking.png" alt="PLAYER 1">
+                <span class="player-2_lives">6💖</span>
+                <span class="player-2_score">0</span>
+            </button>
+        </div>
+        <button class="level_timer themed-button-wooden themed-text-wooden">
+            <span>06:00</span>
+        </button>
+    </div>
+    <div class="level_game-begin hidden">
+        <span class="themed-text-wooden">00:30</span>
+        <button class="themed-button-wooden themed-text-wooden" style="pointer-events: none;">
+            <span>Press ENTER to Start</span>
+        </button>
+    </div>
     <!-- Scripts -->
 
     <script type="module" src="./assets/scripts/classes/gui/popups.js"></script>
@@ -85,7 +149,9 @@
     <script type="module" src="./assets/scripts/sylth/load/load.js"></script>
     <script type="module" src="./assets/scripts/events/custom_events.js"></script>
     <script type="module" src="./assets/scripts/events/events.js"></script>
-    
+    <script type="module" src="./assets/scripts/gui.js"></script>
+    <script type="module" src="./assets/scripts/level.js"></script>
+
     <script type="module" src="./assets/scripts/main.js"></script>
     <script type="module" src="./assets/scripts/home_animation.js"></script>
 </body>
