@@ -4,13 +4,13 @@ import * as utils from "./utils/utils.js";
 import { LoadingScreen } from "./sylth/load/load.js";
 import { AudioHandler } from "./sylth/audio/audio_handler.js";
 
-// Note: touch-device warning will be shown later inside the proceed flow
-
 const main = document.querySelector("main");
 const version_span = document.querySelector(".home_bottom span");
 let mayproceed = false;
 
-const config = await utils.JSON("./config.json");
+// get ze JSON
+const config = await utils.fetchJSON("./json/config.json");
+
 version_span.textContent = `Katch N' Run ${config.version}. Do not distribute!`;
 
 if (config.maintenance) {
@@ -34,8 +34,7 @@ if (mayproceed) {
             size: 50,
             icon: "./assets/textures/gui/warning.png",
             warning: "Proceed to game?",
-            message:
-                "Katch N' Run is still in development and may contain bugs or incomplete features. Do you wish to proceed?"
+            message: ""
         });
 
         proceedPopup.onAccept(async () => {
@@ -63,7 +62,7 @@ if (mayproceed) {
 
             const container = loadingScreen.container;
 
-            await loadingScreen.loadAssetsFromJSON("./asset_paths.json");
+            await loadingScreen.loadAssetsFromJSON("./json/asset_paths.json");
 
             loadingScreen.finish(() => {
                 container.classList.add("fade");
@@ -103,3 +102,20 @@ if (mayproceed) {
         showProceedPopup();
     }
 }
+
+const externs = document.querySelectorAll(".extern");
+Array.from(externs).forEach(extern => {
+    extern.addEventListener("click", () => {
+        const externPopup = new ConfirmationPopup({
+            size: 50,
+            icon: "./assets/textures/entity/leaf.png",
+            warning: "Boo!",
+            message: `${extern.getAttribute("extern-message") || "You are leaving Katch N' Run. Continue to "} ${extern.getAttribute("extern") || "the link"}?`
+        });
+
+        externPopup.show();
+
+        externPopup.onDecline(() => externPopup.remove());
+        externPopup.onAccept(() => window.open(extern.getAttribute("extern") || "katchnrun.com", "_blank"));
+    });
+});

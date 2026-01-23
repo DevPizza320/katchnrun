@@ -1,272 +1,325 @@
-function startChristmasGame() {
+import { Sprite } from "./sylth/core/sprite.js";
+import { Player } from "./classes/entity/player.js";
+import { Timer } from "./sylth/core/time.js";
+import { Canvas } from "./sylth/core/canvas.js";
+import { EntityPool } from "./sylth/core/entity_pool.js";
+import { KeyPress } from "./sylth/core/keypress.js";
+import { CollisionHandler } from "./sylth/core/collision_handler.js";
+import { AudioHandler } from "./sylth/audio/audio_handler.js";
+import { loadFromLocalStorage } from "./utils/utils.js";
+import { InformationPopup } from "./classes/gui/popups.js";
 
-  /* ───────────────── Canvas ───────────────── */
-  const canvas = document.getElementById("gameCanvas");
-  const ctx = canvas.getContext("2d");
+const main = document.querySelector("main");
+const play = document.querySelector(".home_center_play");
+const levelStart = document.querySelector(".home_level_start");
+const levelSelect = document.querySelector(".home_level-select");
+const level = loadFromLocalStorage("levelSettings");
 
-  function resize() {
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
-  }
-  addEventListener("resize", resize);
-  resize();
+const levelStats = document.querySelector(".level_game-stats");
+const levelBegin = document.querySelector(".level_game-begin");
 
-  /* ───────────────── Assets ───────────────── */
-  const bg = new Image();
-  bg.src = "../assets/textures/background/christmas.png";
+let lost = -1;
+let score = -1;
 
-  const p1Img = new Image();
-  p1Img.src = "../assets/textures/entity/player/frog_basket.png";
+function start() {
+    AudioHandler.stopAll();
+    AudioHandler.play("./assets/sounds/ambient/menu.mp3", { loop: true });
+    document.title = level.name;
+    levelStats.style.display = "flex";
+    levelBegin.style.display = "flex";
 
-  const p2Img = new Image();
-  p2Img.src = "../assets/textures/entity/player/green_stocking.png";
+    /* ================= CANVAS ================= */
 
-  const coalImg = new Image();
-  coalImg.src = "../assets/textures/entity/enemy/coal.png";
+    const sky = new Canvas();
+    sky.z = 9999;
+    sky.canvas.style.animation = "sky 240s linear infinite";
+    sky.attach();
 
-  const grinchImg = new Image();
-  grinchImg.src = "../assets/textures/entity/enemy/grinch.png";
+    const background = new Canvas(
+        `url("../../assets/textures/background/${level.img}") no-repeat center center`
+    );
+    background.z = 10000;
+    background.attach();
 
-  const caneImg = new Image();
-  caneImg.src = "../assets/textures/entity/ally/candy_cane.png";
+    const overlay = new Canvas("rgba(0,0,0,.8)");
+    const ctx = overlay.canvas.getContext("2d");
+    overlay.canvas.style.backdropFilter = "blur(2.5px)";
+    overlay.z = 10001;
+    overlay.attach();
 
-  /* ───────────────── State ───────────────── */
-  const state = {
-    mode: "menu", // menu | countdown | play | over
-    countdown: 3,
-    time: 60
-  };
+    const p = (overlay.canvas.width + overlay.canvas.height) / 100;
 
-  /* ───────────────── Players ───────────────── */
-  const players = [
-    {
-      img: p1Img,
-      x: 0.3,
-      lives: 5,
-      score: 0,
-      dir: 0
-    },
-    {
-      img: p2Img,
-      x: 0.6,
-      lives: 5,
-      score: 0,
-      dir: 0
-    }
-  ];
+    /* ================= ENGINE CORE ================= */
 
-  /* ───────────────── Objects ───────────────── */
-  const enemies = [];
-  const allies = [];
-  const balls = [];
-  const particles = [];
+    const entityPool = new EntityPool();
+    entityPool.ctx = ctx;
+    entityPool.setOriginalSize();
 
-  /* ───────────────── Input ───────────────── */
-  addEventListener("keydown", e => {
-    if (state.mode === "menu" && e.key === "Enter") startCountdown();
+    const collisionHandler = new CollisionHandler();
+    entityPool.collisionHandler = collisionHandler;
 
-    if (e.key === "ArrowLeft") players[0].dir = -1;
-    if (e.key === "ArrowRight") players[0].dir = 1;
-    if (e.key === "a") players[1].dir = -1;
-    if (e.key === "d") players[1].dir = 1;
-  });
+    entityPool.start();
 
-  addEventListener("keyup", e => {
-    if (["ArrowLeft", "ArrowRight"].includes(e.key)) players[0].dir = 0;
-    if (["a", "d"].includes(e.key)) players[1].dir = 0;
-  });
-
-  /* ───────────────── Spawning ───────────────── */
-  function spawnEnemy(img, damage, scoreLoss) {
-    enemies.push({
-      img,
-      x: Math.random(),
-      y: -0.1,
-      size: 0.05,
-      vy: 0.004,
-      damage,
-      scoreLoss
-    });
-  }
-
-  function spawnAlly(img, scoreGain, lifeGain) {
-    allies.push({
-      img,
-      x: Math.random(),
-      y: -0.1,
-      size: 0.05,
-      vy: 0.003,
-      scoreGain,
-      lifeGain
-    });
-  }
-
-  function spawnBall(color) {
-    balls.push({
-      x: Math.random(),
-      y: -0.05,
-      r: 10,
-      vy: 0.005,
-      color
-    });
-  }
-
-  /* ───────────────── Particles ───────────────── */
-  for (let i = 0; i < 120; i++) {
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vy: Math.random() * 0.5 + 0.2
-    });
-  }
-
-  /* ───────────────── Timers ───────────────── */
-  function startCountdown() {
-    state.mode = "countdown";
-    const id = setInterval(() => {
-      state.countdown--;
-      if (state.countdown <= 0) {
-        clearInterval(id);
-        startGame();
-      }
-    }, 1000);
-  }
-
-  function startGame() {
-    state.mode = "play";
-
-    setInterval(() => spawnEnemy(coalImg, 1, 200), 1500);
-    setInterval(() => spawnEnemy(grinchImg, 2, 500), 3000);
-    setInterval(() => spawnAlly(caneImg, 500, 1), 2000);
-    setInterval(() => spawnBall(Math.random() > 0.5 ? "red" : "green"), 400);
-
-    setInterval(() => {
-      state.time--;
-      if (state.time <= 0) state.mode = "over";
-    }, 1000);
-  }
-
-  /* ───────────────── Collision ───────────────── */
-  function collide(a, b) {
-    return a.x < b.x + b.w &&
-           a.x + a.w > b.x &&
-           a.y < b.y + b.h &&
-           a.y + a.h > b.y;
-  }
-
-  /* ───────────────── Loop ───────────────── */
-  function loop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    if (bg.complete) ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-
-    // Snow
-    particles.forEach(p => {
-      p.y += p.vy;
-      if (p.y > canvas.height) p.y = 0;
-      ctx.fillStyle = "white";
-      ctx.fillRect(p.x, p.y, 2, 2);
+    window.addEventListener("resize", () => {
+        entityPool.resizeAll();
     });
 
-    if (state.mode === "menu") {
-      drawCenter("Press ENTER to Start");
-    }
+    /* ================= UI ================= */
 
-    if (state.mode === "countdown") {
-      drawCenter(state.countdown);
-    }
-
-    if (state.mode === "play") {
-      updateGame();
-      drawHUD();
-    }
-
-    if (state.mode === "over") {
-      drawGameOver();
-    }
-
-    requestAnimationFrame(loop);
-  }
-
-  /* ───────────────── Update ───────────────── */
-  function updateGame() {
-    players.forEach(p => {
-      p.x += p.dir * 0.01;
-      p.x = Math.max(0, Math.min(1 - 0.08, p.x));
-    });
-
-    updateFalling(enemies);
-    updateFalling(allies);
-
-    balls.forEach((b, i) => {
-      b.y += b.vy;
-      players.forEach(p => {
-        if (
-          b.x * canvas.width > p.x * canvas.width &&
-          b.x * canvas.width < (p.x + 0.08) * canvas.width &&
-          b.y * canvas.height > canvas.height * 0.8
-        ) {
-          p.score += 100;
-          balls.splice(i, 1);
+    const ui = {
+        player1: {
+            lives: document.querySelector(".player-1_lives"),
+            score: document.querySelector(".player-1_score")
+        },
+        player2: {
+            lives: document.querySelector(".player-2_lives"),
+            score: document.querySelector(".player-2_score")
         }
-      });
+    };
+
+    const renderLives = (lives) => lives + "💖";
+
+    const updatePlayerUI = (player, index) => {
+        const target = index === 1 ? ui.player1 : ui.player2;
+        target.lives.textContent = renderLives(player.lives);
+        target.score.textContent = player.score.toString();
+    };
+
+    /* ================= ENTITY RULES ================= */
+
+    const ENTITY_RULES = {
+        monkey: { lives: -1, score: -1000 },
+        coconut: { lives: -2, score: 0 },
+        banana: { lives: +2, score: 0 },
+        sac: { lives: 0, score: +3000 }
+    };
+
+    /* ================= PLAYERS ================= */
+
+    let player1 = null;
+    let player2 = null;
+
+    const createPlayers = () => {
+        player1 = new Player({ left: "a", right: "d", jump: " " });
+        player1.setTexture("./assets/textures/entity/player/frog.png");
+        player1.ctx = ctx;
+        player1.properties.width = 5 * p;
+        player1.properties.height = 5 * p;
+        player1.properties.x = 5 * p;
+        player1.properties.y = overlay.canvas.height - player1.properties.height;
+        player1.properties.speed = p / 2;
+        player1.setGround(overlay.canvas.height);
+        player1.lives = 6;
+        player1.score = 0;
+
+        player2 = new Player({
+            left: "ArrowLeft",
+            right: "ArrowRight",
+            jump: "ArrowUp"
+        });
+        player2.setTexture("./assets/textures/entity/player/red_stocking.png");
+        player2.ctx = ctx;
+        player2.properties.width = 5 * p;
+        player2.properties.height = 5 * p;
+        player2.properties.x =
+            overlay.canvas.width - player2.properties.width - 5 * p;
+        player2.properties.y = overlay.canvas.height - player2.properties.height;
+        player2.properties.speed = p / 2;
+        player2.setGround(overlay.canvas.height);
+        player2.lives = 6;
+        player2.score = 0;
+
+        entityPool.addEntity(player1);
+        entityPool.addEntity(player2);
+        collisionHandler.addEntity(player1);
+        collisionHandler.addEntity(player2);
+
+        updatePlayerUI(player1, 1);
+        updatePlayerUI(player2, 2);
+    };
+
+    /* ================= ENTITY SPAWNER ================= */
+
+    const spawnEntity = ({ type, x, y, speed }) => {
+        const entity = new Sprite();
+        entity.ctx = ctx;
+
+        let dangerous = false, circleColor = "";
+        if (type === "monkey" || type === "coconut") {
+            dangerous = true;
+        } else dangerous = false;
+
+        if (dangerous) {
+            circleColor = "#921d1d";
+        } else circleColor = "#00ff00";
+
+        entity.enableCircle({
+            color: circleColor,
+            opacity: 1,
+            gradient: true,
+            pulse: true
+        });
+
+        entity.properties.id = type;
+        entity.properties.canCollideWith = ["player"];
+
+        entity.setTexture(`./assets/textures/entity/${type}.png`);
+
+        entity.properties.width = 4 * p;
+        entity.properties.height = 4 * p;
+        entity.properties.x = x;
+        entity.properties.y = y;
+        entity.properties.motion.vy = speed;
+
+        let consumed = false;
+
+        entity.onCollision = (other) => {
+            if (consumed) return;
+            if (!other?.properties?.id?.toLowerCase().includes("player")) return;
+
+            consumed = true;
+
+            const rule = ENTITY_RULES[type];
+            if (rule) {
+                other.lives = other.lives + rule.lives;
+                other.score = other.score + rule.score;
+
+                if (player1.score > player2.score) {
+                    score = 2;
+                } else score = 1;
+            }
+
+            if (other === player1) {
+                updatePlayerUI(player1, 1);
+                lost = 1;
+            }
+            if (other === player2) {
+                updatePlayerUI(player2, 2);
+                lost = 2;
+            }
+
+            if (other.lives < 0) {
+                alert(`Player ${lost} just lost! Ouch! I wouldn't let that slide.`);
+                sky.canvas.remove();
+                background.canvas.remove();
+                overlay.canvas.remove();
+                entityPool.stop();
+                AudioHandler.stopAll();
+                main.style.pointerEvents = "all";
+                main.classList.remove("gentle-fade");
+                levelStats.style.display = "none";
+                levelBegin.style.display = "none";
+                AudioHandler.resumeAll();
+                return;
+            }
+
+            AudioHandler.play(`./assets/sounds/sfx/${type}.mp3`);
+
+            entityPool.removeEntity(entity);
+            collisionHandler.removeEntity(entity);
+        };
+
+        entity.update = function () {
+            Sprite.prototype.update.call(this);
+            if (this.properties.y > overlay.canvas.height) {
+                entityPool.removeEntity(this);
+                collisionHandler.removeEntity(this);
+            }
+        };
+
+        entityPool.addEntity(entity);
+        collisionHandler.addEntity(entity);
+    };
+
+    /* ================= SPAWN LOOP ================= */
+
+    let spawnInterval = null;
+
+    const startSpawning = () => {
+        if (spawnInterval) return;
+
+        spawnInterval = setInterval(() => {
+            const types = ["monkey", "banana", "sac", "coconut"];
+            const type = types[Math.floor(Math.random() * types.length)];
+
+            spawnEntity({
+                type,
+                x: Math.random() * (overlay.canvas.width - 4 * p),
+                y: -4 * p,
+                speed: p / 6
+            });
+        }, 900);
+    };
+
+    /* ================= START ================= */
+
+    const WAIT = new Timer(30000, 1000);
+    const GAME_OVER = new Timer(360000, 1000);
+    WAIT.begin();
+    GAME_OVER.begin();
+    const gameBegin = document.querySelector(".level_game-begin");
+    const span = gameBegin.querySelector("span");
+    const levelTimer = document.querySelector(".level_timer").querySelector("span");
+
+    WAIT.onTick(() => {
+        span.textContent = WAIT.getTimeString();
     });
-  }
 
-  function updateFalling(arr) {
-    arr.forEach((o, i) => {
-      o.y += o.vy;
-      players.forEach(p => {
-        const hit =
-          o.x < p.x + 0.08 &&
-          o.x + o.size > p.x &&
-          o.y < 0.9 &&
-          o.y + o.size > 0.8;
+    GAME_OVER.onTick(() => {
+        levelTimer.textContent = GAME_OVER.getTimeString();
+    });
 
-        if (hit) {
-          if (o.damage) {
-            p.lives -= o.damage;
-            p.score -= o.scoreLoss;
-          }
-          if (o.lifeGain) {
-            p.lives += o.lifeGain;
-            p.score += o.scoreGain;
-          }
-          arr.splice(i, 1);
+    WAIT.onEnded(() => {
+        gameBegin.style.display = "none";
+        overlay.canvas.style.backdropFilter = "";
+        overlay.canvas.style.background = "transparent";
+
+        AudioHandler.stopAll();
+        AudioHandler.play("../../assets/sounds/ambient/jungle.mp3", { loop: true });
+
+        WAIT.stop();
+        createPlayers();
+        startSpawning();
+    });
+
+    GAME_OVER.onEnded(() => {
+        if (lost < 0) {
+            alert(`Player ${score} just lost! Ouch! I wouldn't let that slide.`);
         }
-      });
-    });
-  }
+    })
 
-  /* ───────────────── Drawing ───────────────── */
-  function drawHUD() {
-    ctx.fillStyle = "white";
-    ctx.font = "20px Arial";
-    ctx.fillText(`P1 ❤️ ${players[0].lives} | ${players[0].score}`, 20, 30);
-    ctx.fillText(`P2 ❤️ ${players[1].lives} | ${players[1].score}`, 20, 60);
-    ctx.fillText(`⏱ ${state.time}`, canvas.width - 80, 30);
-  }
+    const enterKey = new KeyPress("Enter");
+    enterKey.onpress = () => {
+        gameBegin.style.display = "none";
+        overlay.canvas.style.backdropFilter = "";
+        overlay.canvas.style.background = "transparent";
 
-  function drawCenter(text) {
-    ctx.fillStyle = "red";
-    ctx.font = "48px Arial Black";
-    ctx.textAlign = "center";
-    ctx.fillText(text, canvas.width / 2, canvas.height / 2);
-    ctx.textAlign = "left";
-  }
+        AudioHandler.stopAll();
+        AudioHandler.play("../../assets/sounds/ambient/jungle.mp3");
 
-  function drawGameOver() {
-    drawCenter("GAME OVER");
-    const winner =
-      players[0].score === players[1].score
-        ? "DRAW"
-        : players[0].score > players[1].score
-        ? "PLAYER 1 WINS"
-        : "PLAYER 2 WINS";
-
-    ctx.font = "32px Arial Black";
-    ctx.fillText(winner, canvas.width / 2, canvas.height / 2 + 60);
-  }
-
-  loop();
+        WAIT.stop();
+        createPlayers();
+        startSpawning();
+    };
+    enterKey.listen();
 }
+
+/* ================= MENU ================= */
+levelSelect.parentNode.style.display = "none";
+play.addEventListener("click", () => {
+    levelSelect.parentNode.style.display = "grid";
+});
+
+levelStart.addEventListener("click", () => {
+    levelSelect.style.display = "none";
+    main.style.pointerEvents = "none";
+    main.classList.add("gentle-fade");
+
+    const animationEndHandler = () => {
+        start();
+        main.removeEventListener("animationend", animationEndHandler);
+        main.classList.remove("gentle-fade");
+    };
+
+    main.addEventListener("animationend", animationEndHandler);
+});

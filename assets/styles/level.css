@@ -1,0 +1,116 @@
+/* gentle fade out */
+@keyframes gentleFade {
+    from {
+        opacity: 1;
+        transform: rotate(0deg);
+        scale: 1;
+    } to {
+        opacity: 0;
+        transform: rotate(5deg);
+        scale: 1.5;
+    }
+}
+
+.gentle-fade {
+    animation: gentleFade 7.5s linear;
+}
+
+@keyframes sky {
+    0% {
+        background: #00111e;
+    }
+
+    /* Deep Night */
+    10% {
+        background: #0a2342;
+    }
+
+    /* Midnight Blue */
+    25% {
+        background: #ff9d52;
+    }
+
+    /* Sunrise Orange/Gold */
+    40% {
+        background: #87ceeb;
+    }
+
+    /* Bright Day Blue */
+    60% {
+        background: #87ceeb;
+    }
+
+    /* High Noon */
+    75% {
+        background: #ff5e3a;
+    }
+
+    /* Sunset Red/Pink */
+    85% {
+        background: #2c3e50;
+    }
+
+    /* Dusk Purple */
+    100% {
+        background: #00111e;
+    }
+
+    /* Back to Night */
+}
+
+.level_game-begin {
+    min-width: 25vw;
+    aspect-ratio: 1.5;
+    position: absolute;
+    z-index: 11000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.level_game-begin > span {
+    height: 40%;
+    width: 100%;
+    font-size: var(--large);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.level_game-begin > button {
+    aspect-ratio: 4;
+    min-width: fit-content;
+    text-wrap: nowrap;
+}
+
+.level_game-stats {
+    width: 100vw;
+    aspect-ratio: 10;
+    z-index: 11000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.level_player-stats {
+    height: 100%;
+    aspect-ratio: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.level_player-stats > button {
+    width: 100%;
+    aspect-ratio: 4;
+}
+
+.level_timer {
+    width: 10%;
+    aspect-ratio: 2;
+}

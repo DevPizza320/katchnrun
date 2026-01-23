@@ -1,5 +1,16 @@
 export class AudioHandler {
     static sounds = new Map();
+    static audioSettings = new Map(); // Store randomization settings per audio source
+
+    /**
+     * Configure pitch randomization for an audio source
+     * @param {string} src - Path to audio file
+     * @param {boolean} randomizePitch - Whether to randomize pitch
+     * @param {number} pitchRange - How much to randomize (0.1 = ±10% variation)
+     */
+    static setPitchRandomization(src, randomizePitch = false, pitchRange = 0.1) {
+        this.audioSettings.set(src, { randomizePitch, pitchRange });
+    }
 
     /**
      * Play a sound or music file
@@ -22,7 +33,15 @@ export class AudioHandler {
 
         audio.volume = volume;
         audio.loop = loop;
-        audio.playbackRate = rate;
+
+        // Apply pitch randomization if enabled
+        const settings = this.audioSettings.get(src);
+        let finalRate = rate;
+        if (settings && settings.randomizePitch) {
+            const variation = (Math.random() - 0.5) * 2 * settings.pitchRange; // Random between -pitchRange and +pitchRange
+            finalRate = rate * (1 + variation);
+        }
+        audio.playbackRate = finalRate;
 
         if (forceRestart) {
             audio.currentTime = startAt;
@@ -45,7 +64,6 @@ export class AudioHandler {
     static stopAll() {
         this.sounds.forEach(audio => {
             audio.pause();
-            audio.currentTime = 0;
         });
     }
 
@@ -57,8 +75,12 @@ export class AudioHandler {
         });
     }
 
-    static setVolume(src, volume) {
-        const audio = this.sounds.get(src);
-        if (audio) audio.volume = volume;
+    /**
+     * Get pitch randomization settings for an audio source
+     * @param {string} src - Path to audio file
+     * @returns {object} Settings object with randomizePitch and pitchRange
+     */
+    static getPitchRandomization(src) {
+        return this.audioSettings.get(src) || { randomizePitch: false, pitchRange: 0.1 };
     }
 }

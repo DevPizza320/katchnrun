@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Kambium";
-    src: url("../../assets/resources/Comic Sans MS.ttf");
+    src: url("../../assets/resources/JungleFeverNF.otf");
 }
 
 html, body {
@@ -15,6 +15,8 @@ html, body {
 
 * {
     font-family: "Kambium";
+    letter-spacing: .15rem;
+    word-break: break-all;
     box-sizing: border-box;
     user-select: none;
     overflow: hidden;

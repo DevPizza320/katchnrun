@@ -84,7 +84,7 @@ export class Timer {
         console.log(`Timer is now counting ${this.isReversed ? "up" : "down"}`);
     }
 
-    // Getters
+    // 🔹 Getters
     getCurrentTime() {
         return Math.max(0, Math.round(this.remainingMs));
     }
