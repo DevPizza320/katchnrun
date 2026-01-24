@@ -12,6 +12,8 @@ export function toggleFullscreen(el = document.documentElement) {
     } else {
         document.exitFullscreen();
     }
+
+    if (isTouchDevice()) screen.orientation.lock("landscape");
 }
 
 export async function loadAssetsFromJSON(url) {

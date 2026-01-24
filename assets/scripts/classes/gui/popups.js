@@ -22,6 +22,7 @@ export class Popup {
         this.root.style.width = `${this.size}vw`;
         this.root.style.display = "none";
         this.root.style.zIndex = "1000";
+        this.root.setAttribute("translate", "no");
 
         this.root.innerHTML = `
             <div class="popup-window-top">

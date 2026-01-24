@@ -286,7 +286,19 @@ function start() {
         if (lost < 0) {
             alert(`Player ${score} just lost! Ouch! I wouldn't let that slide.`);
         }
-    })
+
+        sky.canvas.remove();
+        background.canvas.remove();
+        overlay.canvas.remove();
+        entityPool.stop();
+        AudioHandler.stopAll();
+        main.style.pointerEvents = "all";
+        main.classList.remove("gentle-fade");
+        levelStats.style.display = "none";
+        levelBegin.style.display = "none";
+        AudioHandler.play("../../assets/sounds/ambient/home_0.mp3");
+        return;
+    });
 
     const enterKey = new KeyPress("Enter");
     enterKey.onpress = () => {

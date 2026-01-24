@@ -1,6 +1,10 @@
 import { AudioHandler } from "../sylth/audio/audio_handler.js";
 import * as utils from "../utils/utils.js";
 
+document.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+});
+
 document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
         AudioHandler.stopAll();

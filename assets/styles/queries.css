@@ -1,0 +1,5 @@
+@media (orientation: portrait) {
+    .home_rotate-device {
+        display: flex;
+    }
+}

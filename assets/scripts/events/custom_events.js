@@ -1,6 +1,7 @@
 const mainHidden = new CustomEvent('mainHidden');
 const mainShown = new CustomEvent('mainShown');
 
+const portrait = window.matchMedia("(orientation: portrait)");
 const targetNode = document.querySelector("main");
 
 const observer = new MutationObserver((mutationsList) => {
@@ -25,4 +26,14 @@ document.addEventListener("mainHidden", () => {
 
 document.addEventListener("mainShown", () => {
     document.querySelector(".home_animation").style.display = "block";
+});
+
+const portraitMode = new CustomEvent("portraitMode");
+const landscapeMode = new CustomEvent("landscapeMode");
+portrait.addEventListener("change", function(e) {
+    if (e.matches) {
+        document.dispatchEvent(portraitMode);
+    } else {
+        document.dispatchEvent(landscapeMode);
+    }
 });
