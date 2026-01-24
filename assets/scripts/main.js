@@ -32,7 +32,7 @@ if (mayproceed) {
     const showProceedPopup = () => {
         const proceedPopup = new ConfirmationPopup({
             size: 50,
-            icon: "./assets/textures/gui/warning.png",
+            icon: "./assets/textures/entity/leaf.png",
             warning: "Proceed to game?",
             message: ""
         });
@@ -88,13 +88,13 @@ if (mayproceed) {
             icon: "./assets/textures/gui/warning.png",
             warning: "Warning!",
             message:
-                "Katch N' Run does not yet support touch screen devices, and the game experience won't be optimal. Playing with a connected keyboard may work. Do you wish to continue?"
+                "Katch N' Run does not yet support touch screen devices. Please enter from a desktop device."
         });
 
         touchPopup.onOK(() => {
             touchPopup.hide();
             touchPopup.remove();
-            showProceedPopup();
+            window.close();
         });
 
         touchPopup.show();

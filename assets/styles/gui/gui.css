@@ -1,3 +1,27 @@
+@keyframes rotateDevice {
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(-90deg);
+    }
+}
+
+.home_rotate-device {
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    position: absolute;
+    z-index: 20000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.home_rotate-device > img {
+    scale: .5;
+    animation: rotateDevice 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
