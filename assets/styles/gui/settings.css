@@ -1,0 +1,115 @@
+.settings {
+    position: absolute;
+    grid-template-columns: repeat(auto-fit, minmax(calc(var(--largest) * 3), 1fr));
+    grid-template-rows: auto;
+    z-index: 5;
+}
+
+.settings span {
+    /* color: white; */
+    --f: 9;
+}
+
+.settings>fieldset {
+    width: 95%;
+    aspect-ratio: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: 3;
+    grid-auto-rows: minmax(var(--large), auto);
+    border: var(--tinier) solid var(--brown-3);
+    row-gap: var(--mediumest);
+    align-content: center;
+    align-items: stretch;
+}
+
+.settings>fieldset>legend {
+    display: table;
+    margin: 0 auto;
+    font-size: calc(var(--small) * 1.2);
+}
+
+.settings fieldset button {
+    width: 95%;
+    height: max(var(--large), 100%);
+    font-size: var(--small);
+    margin: 0 auto;
+}
+
+.settings>fieldset>.input-group>input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 90%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.settings>fieldset>.input-group>input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10%;
+    aspect-ratio: .5;
+    background: var(--brown-1);
+    border-radius: var(--smallest);
+    cursor: pointer;
+}
+
+/* Change this selector to allow for the nested structure */
+.settings .input-group {
+    width: 95%;
+    height: max(var(--large), 100%);
+    /* match button logic */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* Ensure the span doesn't have conflicting margins */
+.settings .input-group span {
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    line-height: 1;
+}
+
+.settings .value>img {
+    max-width: 80%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+#socials {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--tiny);
+}
+
+#socials button {
+    width: 50%;
+    height: 20%;
+}
+
+#socials span {
+    font-size: var(--medium);
+    text-align: center;
+}
+
+#save-and-exit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--tiny);
+    flex-direction: column;
+}
+
+#save-and-exit button {
+    width: 90%;
+    height: 20%;
+}

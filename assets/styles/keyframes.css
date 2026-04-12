@@ -1,0 +1,157 @@
+@property --sky-top {
+    syntax: '<color>';
+    initial-value: #0a0a12;
+    inherits: false;
+}
+
+@property --sky-bottom {
+    syntax: '<color>';
+    initial-value: #1a1a2e;
+    inherits: false;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes jungle-shimmer {
+
+    /* 0% to 20%: Fade In while Shimmering */
+    0% {
+        opacity: 0;
+        background-position: -100% center;
+    }
+
+    20% {
+        opacity: 1;
+        background-position: 100% center;
+    }
+
+    /* 20% to 80%: Stay Visible & Shimmer */
+    /* We repeat the shimmer loop points here */
+    40% {
+        background-position: -100% center;
+    }
+
+    60% {
+        background-position: 100% center;
+    }
+
+    /* 80% to 100%: Fade Out while Shimmering */
+    80% {
+        opacity: 1;
+        background-position: -100% center;
+    }
+
+    100% {
+        opacity: 0;
+        background-position: 100% center;
+    }
+}
+
+@keyframes black-shine {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes skyCycle {
+
+    0%,
+    100% {
+        --sky-top: #0a0a12;
+        --sky-bottom: #1a1a2e;
+    }
+
+    25% {
+        --sky-top: #ff9d52;
+        --sky-bottom: #ff5e3a;
+    }
+
+    50% {
+        --sky-top: #78A7FF;
+        --sky-bottom: #C3E6FF;
+    }
+
+    75% {
+        --sky-top: #ff5e3a;
+        --sky-bottom: #2c3e50;
+    }
+}
+
+@keyframes nightDarkness {
+
+    /* NIGHT phase (starts at 0% and repeats at 100%) */
+    0%,
+    100% {
+        opacity: 0.5;
+        /* Fade into night */
+    }
+
+    /* SUNRISE/DAY phase transition */
+    20% {
+        opacity: 0.5;
+        /* Hold night until sunrise begins */
+    }
+
+    /* DAY phase (Opacity 0) */
+    30% {
+        opacity: 0;
+        /* Fully day, no darkness */
+    }
+
+    70% {
+        opacity: 0;
+        /* Hold day */
+    }
+
+    /* SUNSET transition back to NIGHT */
+    80% {
+        opacity: 0.5;
+        /* Fade back into darkness as sunset ends */
+    }
+}
+
+@keyframes jungle-float-shimmer {
+    0%, 40%, 80% {
+        background-position: -100% center;
+        transform: translateY(0);
+    }
+    20%, 60%, 100% {
+        background-position: 100% center;
+        transform: translateY(0);
+    }
+    50% {
+        /* Maintains the midpoint of the float */
+        transform: translateY(calc(-1 * var(--tiniest)));
+    }
+}
+
+@keyframes water-sheen {
+    0%, 100% { background-position: 50% 40%; }
+    50% { background-position: 50% 60%; }
+}

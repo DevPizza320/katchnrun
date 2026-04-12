@@ -1,5 +1,6 @@
-@media (orientation: portrait) {
-    .home_rotate-device {
-        display: flex;
-    }
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
 }
