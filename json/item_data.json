@@ -1,0 +1,32 @@
+{
+    "items": {
+        "falling_mango": {
+            "type": "friendly",
+            "speed_mult": 1.0,
+            "health_gain": 1,
+            "score_gain": 100,
+            "behavior": "falling"
+        },
+        "parachuting_crate": {
+            "type": "friendly",
+            "speed_mult": 1.2,
+            "health_gain": 0,
+            "score_gain": 300,
+            "behavior": "falling_slow"
+        },
+        "spiky_durian": {
+            "type": "hostile",
+            "speed_mult": 0.5,
+            "health_gain": -4,
+            "score_gain": 0,
+            "behavior": "falling_fast"
+        },
+        "anvil_rock": {
+            "type": "hostile",
+            "speed_mult": 0.0,
+            "health_gain": -3,
+            "score_gain": 0,
+            "behavior": "falling_vertical"
+        }
+    }
+}

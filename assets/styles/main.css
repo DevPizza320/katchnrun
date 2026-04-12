@@ -1,0 +1,68 @@
+@font-face {
+    font-family: "Skranji";
+    src: url("../../assets/resources/Skranji-Bold.ttf");
+}
+
+@font-face {
+    font-family: "UI";
+    src: url("../../assets/resources/ui.ttf");
+}
+
+* {
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    font-family: UI;
+}
+
+html,
+body {
+    min-height: 100svh;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    background: black;
+}
+
+.game-canvas {
+    image-rendering: pixelated;
+    position: absolute;
+    display: none;
+}
+
+/* Color Palette */
+:root {
+    --night-top: #0a0a12; --night-bottom: #1a1a2e;
+    --sunrise-top: #ff9d52; --sunrise-bottom: #ff5e3a;
+    --day-top: #78A7FF; --day-bottom: #C3E6FF;
+    --sunset-top: #ff5e3a; --sunset-bottom: #2c3e50;
+    
+    --brown-1: #1f1003;
+    --brown-2: #2b1807;
+    --brown-3: #381c03;
+    --brown-4: #402610;
+    --brown-5: #5A3212;
+
+    --brown-6: #7d4915;
+    --brown-7: #995d20;
+    --brown-8: #cc742d;
+    --brown-9: #eb9952;
+    --brown-10: #f0a160;
+
+    --tiniest: calc(.15svw + .15svh);
+    --tinier: calc(.25svw + .25svh);
+    --tiny: calc(.5svw + .5svh);
+    --smallest: calc(.75svw + .75svh);
+    --smaller: calc(1svw + 1svh);
+    --small: calc(1.25svw + 1.25svh);
+    --medium: calc(1.5svw + 1.5svh);
+    --mediumer: calc(1.75svw + 1.75svh);
+    --mediumest: calc(2svw + 2svh);
+    --large: calc(3svw + 3svh);
+    --larger: calc(4svw + 4svh);
+    --largest: calc(5svw + 5svh);
+
+    --blur-overlay: rgba(0,0,0,.2);
+}

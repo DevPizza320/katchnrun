@@ -1,0 +1,81 @@
+.themed-button-wooden {
+    position: relative;
+    border: calc(var(--smallest) / 3) solid var(--brown-1);
+    border-radius: var(--smallest);
+    background-color: #a0753c;
+    box-shadow: 0 calc(-1 * var(--tinier)) 0 inset var(--brown-5);
+    transition: all .3s;
+    display: flex;
+    align-items: center;
+}
+
+.themed-button-wooden:has(> img):not(:has(> span)) {
+    justify-content: center;
+}
+
+.themed-button-wooden:has(> span):not(:has(> img)) {
+    justify-content: center;
+}
+
+.themed-button-wooden:has(> img):has(> span) {
+    justify-content: center;
+    gap: calc(var(--smaller) / 2);
+}
+
+.themed-button-wooden::before {
+    content: "";
+    position: absolute;
+    width: 97.5%;
+    height: 40%;
+    background: var(--brown-1);
+    opacity: .05;
+    border-radius: var(--tiniest) var(--tiniest) calc(var(--tiniest) / 5) calc(var(--tiniest) / 5);
+    inset: 50%;
+    transform: translate(-50%, -2.5%);
+}
+
+.themed-button-wooden:hover {
+    transform: translateY(calc(var(--smallest) / -3));
+}
+
+.themed-button-wooden img {
+    object-fit: contain;
+    max-height: 80%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.themed-text-wooden {
+    color: var(--brown-6);
+    text-shadow: calc(-.65 * var(--tiniest)) calc(.5 * var(--tiniest)) 0 var(--brown-1);
+    font-size: clamp(var(--smallest), var(--small) / 1.2, var(--medium));
+}
+
+.no-hover {
+    pointer-events: none;
+}
+
+.no-access {
+    filter: grayscale(200%);
+    pointer-events: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.fullscreen {
+    width: 100svw;
+    height: 100svh;
+}
+
+.themed-window-blurry {
+    position: absolute;
+    background: rgba(0,0,0,.5);
+    backdrop-filter: blur(3px);
+    place-items: center;
+}
+
+.themed-window-wooden {
+    background: #b5884d;
+}

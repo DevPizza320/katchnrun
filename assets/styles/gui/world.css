@@ -1,0 +1,35 @@
+#world {
+    z-index: 1;
+    background: transparent;
+}
+
+#sky {
+    z-index: 0;
+    background: linear-gradient(to bottom, var(--sky-top), var(--sky-bottom));
+    animation: skyCycle 120s linear infinite;
+}
+
+#darkness {
+    z-index: 2;
+    background: #000;
+    animation: nightDarkness 120s linear infinite;
+}
+
+.shaders {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+    background: transparent;
+    opacity: 0;
+    transition: opacity 0.2s ease, background 0.2s ease;
+    mix-blend-mode: screen;
+    will-change: opacity, background;
+}
+
+.shaders.water-active {
+    opacity: 0.68;
+    background: radial-gradient(circle at 50% 25%, rgba(135, 206, 250, 0.24), rgba(20, 100, 170, 0.18) 30%, rgba(6, 18, 55, 0.82) 100%);
+    background-size: 180% 180%;
+    animation: water-sheen 6s ease-in-out infinite;
+}

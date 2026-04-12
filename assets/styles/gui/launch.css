@@ -1,0 +1,62 @@
+#launch {
+    background: radial-gradient(circle at center, #222222 0%, #000000 70%);
+    background-size: 200% 200%;
+    animation: black-shine 18s ease-in-out infinite;
+}
+
+#controls-container {
+    width: 25svw;
+    height: auto;
+    aspect-ratio: 2;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.control-button {
+    height: 45%;
+    width: 100%;
+}
+
+#game-title {
+    font-family: "Skranji", system-ui, sans-serif;
+    font-size: calc(var(--largest) * 1.5);
+    font-weight: bold;
+    position: absolute;
+    z-index: 4;
+    background: linear-gradient(110deg,
+            #132a13 30%,
+            #9ef01a 50%,
+            #132a13 70%);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0px var(--smallest) 0px #0a1a0a) drop-shadow(0px var(--small) var(--smallest) rgba(0, 0, 0, 0.5));
+    animation: none;
+}
+
+#game-title.game-title-menu {
+    top: 5%;
+    font-family: "Skranji", system-ui, sans-serif;
+    font-size: calc(var(--largest) * 1.5);
+    font-weight: bold;
+    position: absolute;
+    z-index: 4;
+    background: linear-gradient(110deg,
+            #132a13 30%,
+            #324e05 50%,
+            #132a13 70%);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0px var(--smallest) 0px #0a1a0a) drop-shadow(0px var(--small) var(--smallest) rgba(0, 0, 0, 0.5));
+}
+
+.app {
+    place-items: center;
+    z-index: 3;
+}

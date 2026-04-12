@@ -1,0 +1,31 @@
+{
+    "images": {
+        "bamboo_leaves": "./assets/textures/block/bamboo_leaves.png",
+        "bamboo_stalk": "./assets/textures/block/bamboo_stalk.png",
+        "dirt": "./assets/textures/block/dirt.png",
+        "dirt1": "./assets/textures/block/dirt1.png",
+        "grass_bamboo_jungle": "./assets/textures/block/grass_bamboo_jungle.png",
+        "grass_jungle": "./assets/textures/block/grass_jungle.png",
+        "jungle_leaves": "./assets/textures/block/jungle_leaves.png",
+        "jungle_log": "./assets/textures/block/jungle_log.png",
+        "short_grass": "./assets/textures/block/short_grass.png",
+        "water": "./assets/textures/block/water.png",
+        "discord": "./assets/textures/gui/discord.png",
+        "heart": "./assets/textures/gui/heart.png",
+        "heart_black": "./assets/textures/gui/heart_black.png",
+        "settings": "./assets/textures/gui/settings.png",
+        "youtube": "./assets/textures/gui/youtube.png",
+        "anvil_rock": "./assets/textures/item/anvil_rock.png",
+        "banana": "./assets/textures/item/banana.png",
+        "frog": "./assets/textures/item/frog.png",
+        "mango": "./assets/textures/item/mango.png",
+        "spiky_durian": "./assets/textures/item/spiky_durian.png",
+        "toxic_grass": "./assets/textures/block/toxic_grass.png"
+    },
+    "sounds": {
+        "dripstone": "./assets/sounds/ambient/dripstone.mp3",
+        "menu": "./assets/sounds/ambient/menu.mp3",
+        "button_press": "./assets/sounds/sfx/button_press.mp3",
+        "water_enter": "./assets/sounds/sfx/water_enter.mp3"
+    }
+}
